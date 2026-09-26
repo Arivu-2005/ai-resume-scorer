@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Scorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs" type="module"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<main class="container">
+<header class="header">
+<div class="eyebrow">AI-READY RESUME ANALYSIS</div>
+<h1>Resume <span>Scorer</span></h1>
+<p class="subtitle">Upload your resume and get an instant ATS-focused analysis of your structure, keywords, skills, projects and readability.</p>
+</header>
+
+<section id="uploadScreen" class="card upload-card">
+<div id="dropZone" class="drop-zone">
+<input id="fileInput" type="file" accept=".pdf">
+<div class="pdf-icon">
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="8" y="4" width="24" height="32" rx="3"/>
+<path d="M32 4l8 8v28a3 3 0 01-3 3H11a3 3 0 01-3-3"/>
+<path d="M32 4v8h8"/><path d="M17 28h14"/><path d="M17 22h14"/><path d="M17 16h8"/>
+</svg>
+</div>
+<div class="drop-title">Drop your resume here</div>
+<div class="drop-subtitle">or <strong>click to browse</strong> — PDF only</div>
+</div>
+<div id="filePreview" class="file-preview hidden">
+<span class="file-dot"></span><span id="fileName">resume.pdf</span><button id="removeFile">×</button>
+</div>
+<button id="analyzeBtn" class="primary-btn" disabled>Analyze Resume</button>
+</section>
+
+<section id="loadingScreen" class="card loading-screen hidden">
+<div class="spinner"></div>
+<h3>Analyzing your resume...</h3>
+<p>Extracting resume content and checking ATS signals.</p>
+<div class="loading-steps">
+<div id="step1">○ Reading PDF</div>
+<div id="step2">○ Detecting sections</div>
+<div id="step3">○ Checking keywords</div>
+<div id="step4">○ Generating recommendations</div>
+</div>
+</section>
+
+<section id="errorScreen" class="hidden">
+<div class="card error-card">
+<div class="error-title">ANALYSIS FAILED</div>
+<p id="errorMessage">Something went wrong.</p>
+</div>
+<button id="retryBtn" class="secondary-btn">← Try Again</button>
+</section>
+
+<section id="resultsScreen" class="results hidden">
+<div class="candidate">
+<div id="candidateName">Resume</div>
+<div id="candidateRole" class="role-badge">Resume Analysis</div>
+</div>
+
+<div class="card score-card">
+<div class="score-layout">
+<div class="score-ring">
+<svg width="170" height="170" viewBox="0 0 170 170">
+<circle class="ring-background" cx="85" cy="85" r="70"/>
+<circle id="scoreCircle" class="ring-progress" cx="85" cy="85" r="70"/>
+</svg>
+<div class="score-label"><span id="scoreNumber">0</span><small>/ 100</small></div>
+</div>
+<div class="verdict">
+<div class="verdict-label">OVERALL ASSESSMENT</div>
+<p id="verdictText">Your resume has been analyzed.</p>
+</div>
+</div>
+</div>
+
+<div class="card"><div class="section-label">SCORE BREAKDOWN</div><div id="breakdown"></div></div>
+<div class="card"><div class="section-label">ATS KEYWORDS</div><div id="keywordStats"></div><div id="keywordList" class="keyword-list"></div></div>
+
+<div class="feedback-grid">
+<div class="card"><div class="feedback-title green">✓ Strengths</div><ul id="strengths"></ul></div>
+<div class="card"><div class="feedback-title red">↗ To Improve</div><ul id="improvements" class="red-list"></ul></div>
+</div>
+
+<div class="card"><div class="section-label">RESUME SECTIONS</div><div id="sectionsAnalysis"></div></div>
+<div class="card"><div class="section-label">EXTRACTED RESUME TEXT</div><div id="textPreview" class="text-preview"></div></div>
+<button id="resetBtn" class="secondary-btn">← Analyze Another Resume</button>
+</section>
+</main>
+</div>
+<script src="script.js" type="module"></script>
+</body>
+</html>
